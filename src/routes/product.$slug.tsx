@@ -86,7 +86,7 @@ function ProductPage() {
           <div className="mt-8">
             <div className="text-sm font-medium mb-2">Color: <span className="text-muted-foreground font-normal">{color}</span></div>
             <div className="flex gap-2">
-              {product.colors.map((c) => (
+              {product.colors.map((c: string) => (
                 <button key={c} onClick={() => setColor(c)} className={`rounded-full border px-4 py-2 text-xs transition-colors ${color === c ? "bg-ink text-primary-foreground border-ink" : "hover:border-gold"}`}>
                   {c}
                 </button>
