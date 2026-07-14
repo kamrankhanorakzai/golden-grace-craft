@@ -9,38 +9,235 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrackOrderRouteImport } from './routes/track-order'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ReviewsRouteImport } from './routes/reviews'
+import { Route as NewArrivalsRouteImport } from './routes/new-arrivals'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as CollectionsRouteImport } from './routes/collections'
+import { Route as BlogRouteImport } from './routes/blog'
+import { Route as BestSellersRouteImport } from './routes/best-sellers'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 
+const TrackOrderRoute = TrackOrderRouteImport.update({
+  id: '/track-order',
+  path: '/track-order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReviewsRoute = ReviewsRouteImport.update({
+  id: '/reviews',
+  path: '/reviews',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NewArrivalsRoute = NewArrivalsRouteImport.update({
+  id: '/new-arrivals',
+  path: '/new-arrivals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionsRoute = CollectionsRouteImport.update({
+  id: '/collections',
+  path: '/collections',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BestSellersRoute = BestSellersRouteImport.update({
+  id: '/best-sellers',
+  path: '/best-sellers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductSlugRoute = ProductSlugRouteImport.update({
+  id: '/product/$slug',
+  path: '/product/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/blog': typeof BlogRoute
+  '/collections': typeof CollectionsRoute
+  '/contact': typeof ContactRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/reviews': typeof ReviewsRoute
+  '/shop': typeof ShopRoute
+  '/track-order': typeof TrackOrderRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/blog': typeof BlogRoute
+  '/collections': typeof CollectionsRoute
+  '/contact': typeof ContactRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/reviews': typeof ReviewsRoute
+  '/shop': typeof ShopRoute
+  '/track-order': typeof TrackOrderRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/best-sellers': typeof BestSellersRoute
+  '/blog': typeof BlogRoute
+  '/collections': typeof CollectionsRoute
+  '/contact': typeof ContactRoute
+  '/new-arrivals': typeof NewArrivalsRoute
+  '/reviews': typeof ReviewsRoute
+  '/shop': typeof ShopRoute
+  '/track-order': typeof TrackOrderRoute
+  '/product/$slug': typeof ProductSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/best-sellers'
+    | '/blog'
+    | '/collections'
+    | '/contact'
+    | '/new-arrivals'
+    | '/reviews'
+    | '/shop'
+    | '/track-order'
+    | '/product/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/best-sellers'
+    | '/blog'
+    | '/collections'
+    | '/contact'
+    | '/new-arrivals'
+    | '/reviews'
+    | '/shop'
+    | '/track-order'
+    | '/product/$slug'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/best-sellers'
+    | '/blog'
+    | '/collections'
+    | '/contact'
+    | '/new-arrivals'
+    | '/reviews'
+    | '/shop'
+    | '/track-order'
+    | '/product/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BestSellersRoute: typeof BestSellersRoute
+  BlogRoute: typeof BlogRoute
+  CollectionsRoute: typeof CollectionsRoute
+  ContactRoute: typeof ContactRoute
+  NewArrivalsRoute: typeof NewArrivalsRoute
+  ReviewsRoute: typeof ReviewsRoute
+  ShopRoute: typeof ShopRoute
+  TrackOrderRoute: typeof TrackOrderRoute
+  ProductSlugRoute: typeof ProductSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/track-order': {
+      id: '/track-order'
+      path: '/track-order'
+      fullPath: '/track-order'
+      preLoaderRoute: typeof TrackOrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reviews': {
+      id: '/reviews'
+      path: '/reviews'
+      fullPath: '/reviews'
+      preLoaderRoute: typeof ReviewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/new-arrivals': {
+      id: '/new-arrivals'
+      path: '/new-arrivals'
+      fullPath: '/new-arrivals'
+      preLoaderRoute: typeof NewArrivalsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collections': {
+      id: '/collections'
+      path: '/collections'
+      fullPath: '/collections'
+      preLoaderRoute: typeof CollectionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-sellers': {
+      id: '/best-sellers'
+      path: '/best-sellers'
+      fullPath: '/best-sellers'
+      preLoaderRoute: typeof BestSellersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +245,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/product/$slug': {
+      id: '/product/$slug'
+      path: '/product/$slug'
+      fullPath: '/product/$slug'
+      preLoaderRoute: typeof ProductSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BestSellersRoute: BestSellersRoute,
+  BlogRoute: BlogRoute,
+  CollectionsRoute: CollectionsRoute,
+  ContactRoute: ContactRoute,
+  NewArrivalsRoute: NewArrivalsRoute,
+  ReviewsRoute: ReviewsRoute,
+  ShopRoute: ShopRoute,
+  TrackOrderRoute: TrackOrderRoute,
+  ProductSlugRoute: ProductSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
