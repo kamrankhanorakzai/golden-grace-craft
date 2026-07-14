@@ -51,6 +51,10 @@ export function Chatbot() {
       time: now(),
     },
   ]);
+  // Fresh session id per browser load — refreshing the page starts a new chat session.
+  const sessionIdRef = useRef<string>(
+    typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `luxe-${Date.now()}`,
+  );
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
