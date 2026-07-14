@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-// Paste your n8n AI Agent webhook URL here to connect the chatbot.
-const CHATBOT_WEBHOOK_URL = "";
+// n8n AI Agent webhook
+const CHATBOT_WEBHOOK_URL = "https://n8n-postgres.aiconsultix.com/webhook/Fahion-Chat-bot";
 
 type Msg = { id: string; role: "user" | "bot"; text: string; time: string };
 
@@ -15,22 +17,27 @@ const suggested = [
   "Product Care",
 ];
 
-const mockResponses: Record<string, string> = {
-  "Show Best Sellers":
-    "Our current best sellers are the Eternal Gold Chain, Pearl Drop Earrings, and the Royal Gift Set. Would you like a direct link?",
-  "Shipping Information":
-    "We offer free shipping on orders above Rs. 5000. Standard delivery takes 2–4 business days across Pakistan.",
-  "Return Policy":
-    "You can exchange or return unworn items within 7 days of delivery. Original packaging is required.",
-  "Track My Order":
-    "You can track your order any time on our Track Order page — you'll just need your order number and email.",
-  "Gift Recommendations":
-    "For gifting we recommend the Royal Gift Set or the Duo Heart Pendant — both come with our signature luxury packaging. ✨",
-  "Product Care":
-    "All our pieces are waterproof, anti-tarnish and hypoallergenic. To keep them shining, gently wipe with a soft cloth after use.",
-};
-
 const now = () => new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+// Clean and normalize raw agent output into readable markdown
+function cleanReply(raw: unknown): string {
+  let s = typeof raw === "string" ? raw : JSON.stringify(raw ?? "", null, 2);
+  s = s.trim();
+  // Strip wrapping quotes
+  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+    s = s.slice(1, -1);
+  }
+  // Unescape common sequences
+  s = s
+    .replace(/\\n/g, "\n")
+    .replace(/\\t/g, "  ")
+    .replace(/\\r/g, "")
+    .replace(/\\"/g, '"')
+    .replace(/\\'/g, "'");
+  // Collapse 3+ newlines
+  s = s.replace(/\n{3,}/g, "\n\n");
+  return s.trim();
+}
 
 export function Chatbot() {
   const [open, setOpen] = useState(false);
@@ -40,7 +47,7 @@ export function Chatbot() {
     {
       id: "welcome",
       role: "bot",
-      text: "Hello ✨ I'm your Luxe Jewelry assistant. How can I help you today?",
+      text: "Hello ✨ I'm your **Luxe Jewelry** assistant. How can I help you today?",
       time: now(),
     },
   ]);
@@ -50,6 +57,23 @@ export function Chatbot() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, typing, open]);
 
+  // Typewriter effect — reveal text like ChatGPT
+  function streamBotMessage(fullText: string) {
+    const id = crypto.randomUUID();
+    const time = now();
+    setMessages((m) => [...m, { id, role: "bot", text: "", time }]);
+    let i = 0;
+    const step = Math.max(1, Math.ceil(fullText.length / 240)); // ~240 ticks max
+    const interval = window.setInterval(() => {
+      i = Math.min(fullText.length, i + step);
+      setMessages((m) => m.map((msg) => (msg.id === id ? { ...msg, text: fullText.slice(0, i) } : msg)));
+      if (scrollRef.current) {
+        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }
+      if (i >= fullText.length) window.clearInterval(interval);
+    }, 18);
+  }
+
   async function send(text: string) {
     const clean = text.trim();
     if (!clean) return;
@@ -58,31 +82,49 @@ export function Chatbot() {
     setMessages((m) => [...m, userMsg]);
     setTyping(true);
 
+    let reply = "";
     try {
-      let reply = mockResponses[clean];
-      if (CHATBOT_WEBHOOK_URL) {
-        const res = await fetch(CHATBOT_WEBHOOK_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message: clean, history: messages }),
-        });
-        const data = await res.json().catch(() => ({}));
-        reply = (data.reply || data.output || data.message) as string;
+      const res = await fetch(CHATBOT_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: clean,
+          sessionId: "luxe-web",
+          history: messages.map((m) => ({ role: m.role, text: m.text })),
+        }),
+      });
+      const contentType = res.headers.get("content-type") || "";
+      let data: unknown;
+      if (contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        data = await res.text();
       }
-      await new Promise((r) => setTimeout(r, 700));
-      setMessages((m) => [
-        ...m,
-        {
-          id: crypto.randomUUID(),
-          role: "bot",
-          text: reply ??
-            "Thanks for your message! One of our specialists will be in touch shortly. In the meantime, feel free to browse our collections.",
-          time: now(),
-        },
-      ]);
+      // Try common shapes
+      const anyData = data as Record<string, unknown> | string;
+      if (typeof anyData === "string") {
+        reply = cleanReply(anyData);
+      } else {
+        const candidate =
+          (anyData.reply as string) ??
+          (anyData.output as string) ??
+          (anyData.message as string) ??
+          (anyData.text as string) ??
+          (anyData.response as string) ??
+          ((anyData.data as Record<string, unknown> | undefined)?.output as string) ??
+          "";
+        reply = cleanReply(candidate || JSON.stringify(anyData));
+      }
+    } catch {
+      reply = "Sorry, I couldn't reach the assistant right now. Please try again in a moment.";
     } finally {
       setTyping(false);
     }
+
+    if (!reply) {
+      reply = "Thanks for your message! One of our specialists will be in touch shortly.";
+    }
+    streamBotMessage(reply);
   }
 
   return (
@@ -118,7 +160,7 @@ export function Chatbot() {
           <div ref={scrollRef} className="max-h-[380px] overflow-y-auto bg-cream px-4 py-4 space-y-3">
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                <div className="max-w-[80%]">
+                <div className="max-w-[85%]">
                   <div
                     className={`rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                       m.role === "user"
@@ -126,7 +168,13 @@ export function Chatbot() {
                         : "bg-white text-foreground border rounded-bl-sm"
                     }`}
                   >
-                    {m.text}
+                    {m.role === "bot" ? (
+                      <div className="chat-md">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.text || "\u200B"}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      m.text
+                    )}
                   </div>
                   <div className={`mt-1 text-[10px] text-muted-foreground ${m.role === "user" ? "text-right" : ""}`}>{m.time}</div>
                 </div>
