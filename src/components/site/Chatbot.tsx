@@ -93,7 +93,7 @@ export function Chatbot() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: clean,
-          sessionId: "luxe-web",
+          sessionId: sessionIdRef.current,
           history: messages.map((m) => ({ role: m.role, text: m.text })),
         }),
       });
