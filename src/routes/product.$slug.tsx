@@ -48,7 +48,7 @@ function ProductPage() {
             )}
           </div>
           <div className="mt-4 grid grid-cols-4 gap-3">
-            {gallery.map((g, i) => (
+            {gallery.map((g: string, i: number) => (
               <button key={i} onClick={() => setActiveImg(i)} className={`relative aspect-square overflow-hidden rounded-xl border-2 transition-colors ${activeImg === i ? "border-gold" : "border-transparent"}`}>
                 <img src={g} alt="" className="h-full w-full object-cover" />
               </button>
