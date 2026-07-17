@@ -99,7 +99,7 @@ src/components/site/Chatbot.tsx
 It sends every message to a configurable webhook URL:
 
 ```ts
-const CHATBOT_WEBHOOK_URL = "https://n8n-postgres.aiconsultix.com/webhook/Fahion-Chat-bot";
+const CHATBOT_WEBHOOK_URL = "";
 ```
 
 The payload includes:
