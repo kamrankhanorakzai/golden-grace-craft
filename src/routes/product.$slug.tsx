@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Heart, Minus, Plus, Truck, ShieldCheck, RefreshCw, Star, Sparkles } from "lucide-react";
 import { products } from "@/lib/products";
+import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/site/ProductCard";
 
 export const Route = createFileRoute("/product/$slug")({
