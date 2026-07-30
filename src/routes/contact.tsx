@@ -18,8 +18,8 @@ function Contact() {
         <div className="rounded-3xl bg-cream p-8 space-y-6">
           {[
             { icon: Mail, label: "Email", value: "hello@luxejewelry.com" },
-            { icon: Phone, label: "Phone", value: "+92 300 1234567" },
-            { icon: MapPin, label: "Studio", value: "12 Diamond Lane, DHA Phase 5, Karachi" },
+            { icon: Phone, label: "Phone", value: "+1 (212) 555-0184" },
+            { icon: MapPin, label: "Studio", value: "412 Madison Avenue, Suite 1200, New York, NY 10017" },
           ].map(({ icon: Icon, label, value }) => (
             <div key={label} className="flex items-start gap-4">
               <div className="grid h-11 w-11 place-items-center rounded-full gradient-gold text-ink shrink-0"><Icon className="h-4.5 w-4.5" /></div>
@@ -37,7 +37,7 @@ function Contact() {
             <iframe
               title="Map"
               className="w-full h-full"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=67.05%2C24.80%2C67.10%2C24.85&layer=mapnik"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=-73.99%2C40.74%2C-73.96%2C40.77&layer=mapnik"
             />
           </div>
         </div>

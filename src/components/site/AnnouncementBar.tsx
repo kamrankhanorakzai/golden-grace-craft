@@ -1,5 +1,5 @@
 const items = [
-  "✨ Free Shipping on Orders Above Rs. 5000",
+  "✨ Free Shipping on Orders on U.S. Orders Over $75",
   "🎁 Premium Gift Packaging Available",
   "⭐ Trusted by 25,000+ Customers",
   "💎 Waterproof & Anti-Tarnish Guarantee",

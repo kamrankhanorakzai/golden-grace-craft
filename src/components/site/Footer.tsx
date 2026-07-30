@@ -13,8 +13,8 @@ export function Footer() {
           </p>
           <div className="mt-6 space-y-2 text-sm text-white/80">
             <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> hello@luxejewelry.com</div>
-            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> +92 300 1234567</div>
-            <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Karachi, Pakistan</div>
+            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> +1 (212) 555-0184</div>
+            <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> New York, NY, USA</div>
           </div>
           <div className="mt-6 flex gap-3">
             {[Instagram, Facebook, Twitter, Youtube].map((Icon, i) => (
