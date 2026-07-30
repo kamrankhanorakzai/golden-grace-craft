@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Heart, Eye, ShoppingBag, Star } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { formatPrice } from "@/lib/format";
 
 const badgeStyles: Record<string, string> = {
   "Best Seller": "bg-ink text-primary-foreground",
@@ -73,9 +74,9 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </Link>
         <div className="flex items-baseline gap-2">
-          <span className="font-semibold">Rs. {product.price.toLocaleString()}</span>
+          <span className="font-semibold">{formatPrice(product.price)}</span>
           {product.originalPrice && (
-            <span className="text-xs text-muted-foreground line-through">Rs. {product.originalPrice.toLocaleString()}</span>
+            <span className="text-xs text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
           )}
         </div>
       </div>

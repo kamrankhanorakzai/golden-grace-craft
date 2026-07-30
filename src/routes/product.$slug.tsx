@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useState } from "react";
 import { Heart, Minus, Plus, Truck, ShieldCheck, RefreshCw, Star, Sparkles } from "lucide-react";
 import { products } from "@/lib/products";
+import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/site/ProductCard";
 
 export const Route = createFileRoute("/product/$slug")({
@@ -69,12 +70,12 @@ function ProductPage() {
           </div>
 
           <div className="mt-6 flex items-baseline gap-3">
-            <span className="font-serif-display text-4xl">Rs. {product.price.toLocaleString()}</span>
+            <span className="font-serif-display text-4xl">{formatPrice(product.price)}</span>
             {product.originalPrice && (
               <>
-                <span className="text-lg text-muted-foreground line-through">Rs. {product.originalPrice.toLocaleString()}</span>
+                <span className="text-lg text-muted-foreground line-through">{formatPrice(product.originalPrice)}</span>
                 <span className="rounded-full bg-destructive/10 px-2.5 py-0.5 text-xs font-medium text-destructive">
-                  Save Rs. {(product.originalPrice - product.price).toLocaleString()}
+                  Save {formatPrice(product.originalPrice - product.price)}
                 </span>
               </>
             )}
@@ -114,7 +115,7 @@ function ProductPage() {
           {/* Perks */}
           <div className="mt-8 grid grid-cols-3 gap-3">
             {[
-              { icon: Truck, label: "Free shipping over Rs. 5000" },
+              { icon: Truck, label: "Free U.S. shipping over $75" },
               { icon: RefreshCw, label: "7-day easy exchange" },
               { icon: ShieldCheck, label: "Lifetime shine warranty" },
             ].map(({ icon: Icon, label }) => (

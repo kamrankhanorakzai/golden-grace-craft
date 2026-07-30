@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { products } from "@/lib/products";
+import { formatPrice } from "@/lib/format";
 import { ProductCard } from "@/components/site/ProductCard";
 import { SlidersHorizontal, Grid3x3, List } from "lucide-react";
 
@@ -18,7 +19,7 @@ function Shop() {
   const [cat, setCat] = useState("All");
   const [sort, setSort] = useState("featured");
   const [view, setView] = useState<"grid" | "list">("grid");
-  const [priceMax, setPriceMax] = useState(15000);
+  const [priceMax, setPriceMax] = useState(400);
 
   let filtered = products.filter((p) => (cat === "All" || p.category === cat) && p.price <= priceMax);
   if (sort === "price-asc") filtered = [...filtered].sort((a, b) => a.price - b.price);
@@ -45,9 +46,9 @@ function Shop() {
             </ul>
           </FilterBlock>
           <FilterBlock title="Price Range">
-            <input type="range" min={500} max={15000} step={500} value={priceMax} onChange={(e) => setPriceMax(+e.target.value)} className="w-full accent-[oklch(0.78_0.14_85)]" />
+            <input type="range" min={25} max={400} step={25} value={priceMax} onChange={(e) => setPriceMax(+e.target.value)} className="w-full accent-[oklch(0.78_0.14_85)]" />
             <div className="mt-2 flex justify-between text-xs text-muted-foreground">
-              <span>Rs. 500</span><span className="font-medium text-foreground">Up to Rs. {priceMax.toLocaleString()}</span>
+              <span>$25</span><span className="font-medium text-foreground">Up to {formatPrice(priceMax)}{priceMax >= 400 ? "+" : ""}</span>
             </div>
           </FilterBlock>
           <FilterBlock title="Material">{materials.map((m) => <Chip key={m}>{m}</Chip>)}</FilterBlock>

@@ -13,8 +13,8 @@ export function Footer() {
           </p>
           <div className="mt-6 space-y-2 text-sm text-white/80">
             <div className="flex items-center gap-2"><Mail className="h-4 w-4 text-gold" /> hello@luxejewelry.com</div>
-            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> +92 300 1234567</div>
-            <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> Karachi, Pakistan</div>
+            <div className="flex items-center gap-2"><Phone className="h-4 w-4 text-gold" /> +1 (212) 555-0184</div>
+            <div className="flex items-center gap-2"><MapPin className="h-4 w-4 text-gold" /> New York, NY, USA</div>
           </div>
           <div className="mt-6 flex gap-3">
             {[Instagram, Facebook, Twitter, Youtube].map((Icon, i) => (
@@ -43,7 +43,7 @@ export function Footer() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
           <p>© {new Date().getFullYear()} Luxe Jewelry. All rights reserved.</p>
           <div className="flex items-center gap-3 text-white/70">
-            {["VISA", "Mastercard", "AmEx", "PayPal", "COD"].map((p) => (
+            {["VISA", "Mastercard", "AmEx", "Discover", "PayPal", "Apple Pay", "Klarna"].map((p) => (
               <span key={p} className="rounded border border-white/15 px-2 py-1 text-[10px] tracking-widest">{p}</span>
             ))}
           </div>

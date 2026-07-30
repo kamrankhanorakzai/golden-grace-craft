@@ -209,9 +209,9 @@ function Home() {
           {[
             ["Is your jewelry waterproof?", "Yes — every Luxe piece is 100% waterproof. You can shower, swim, and sweat in them without worry."],
             ["Does it fade over time?", "No. Our premium stainless steel with PVD gold plating is engineered to keep its color for years, backed by our Lifetime Shine Guarantee."],
-            ["How long is shipping?", "Standard delivery takes 2–4 business days across Pakistan. International orders arrive in 7–14 business days."],
+            ["How long is shipping?", "Standard delivery takes 2–4 business days anywhere in the United States, with free shipping over $75. International orders arrive in 7–14 business days."],
             ["Can I exchange products?", "Absolutely. Unworn pieces in original packaging can be exchanged or returned within 7 days of delivery."],
-            ["What payment methods are accepted?", "We accept Visa, Mastercard, American Express, JazzCash, Easypaisa, bank transfer, and Cash on Delivery."],
+            ["What payment methods are accepted?", "We accept Visa, Mastercard, American Express, Discover, PayPal, Apple Pay, Google Pay, and Shop Pay — plus interest-free installments with Klarna and Afterpay."],
           ].map(([q, a]) => (
             <AccordionItem key={q} value={q} className="border-b">
               <AccordionTrigger className="text-left font-serif-display text-lg hover:text-gold-dark">{q}</AccordionTrigger>
