@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { playReceiveSound, playSendSound } from "@/lib/chat-sounds";
 
 // n8n AI Agent webhook
 const CHATBOT_WEBHOOK_URL = "https://n8n-postgres.aiconsultix.com/webhook/Fahion-Chat-bot";
@@ -65,6 +66,7 @@ export function Chatbot() {
   function streamBotMessage(fullText: string) {
     const id = crypto.randomUUID();
     const time = now();
+    playReceiveSound();
     setMessages((m) => [...m, { id, role: "bot", text: "", time }]);
     let i = 0;
     const step = Math.max(1, Math.ceil(fullText.length / 240)); // ~240 ticks max
@@ -84,6 +86,7 @@ export function Chatbot() {
     setInput("");
     const userMsg: Msg = { id: crypto.randomUUID(), role: "user", text: clean, time: now() };
     setMessages((m) => [...m, userMsg]);
+    playSendSound();
     setTyping(true);
 
     let reply = "";
