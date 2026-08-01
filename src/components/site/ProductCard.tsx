@@ -28,6 +28,12 @@ export function ProductCard({ product }: { product: Product }) {
             src={product.image}
             alt={product.name}
             loading="lazy"
+            onError={(e) => {
+              const el = e.currentTarget;
+              if (el.dataset.fallback) return;
+              el.dataset.fallback = "1";
+              el.src = "https://images.unsplash.com/photo-1611652022419-a9419f74343d?auto=format&fit=crop&w=900&q=80";
+            }}
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </Link>

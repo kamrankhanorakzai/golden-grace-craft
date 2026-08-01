@@ -168,7 +168,7 @@ export const products: Product[] = [
   {
     id: "p19", slug: "paperclip-chain-bracelet", name: "Paperclip Chain Bracelet",
     category: "Bracelets", price: 58, originalPrice: 82,
-    image: img("photo-1602752275197-9a1eb1c5f2a5"),
+    image: img("photo-1626784215021-2e39ccf971cd"),
     rating: 4.7, reviews: 165, badge: "Sale",
     material: "14K Gold Plated Stainless Steel", colors: ["Gold", "Rose Gold"],
     description: "Elongated links with an adjustable extender — the modern layering essential.",
@@ -236,8 +236,8 @@ export const reviews = [
 export const gallery = [
   img("photo-1611591437281-460bfbe1220a"),
   img("photo-1617038220319-276d3cfab638"),
-  img("photo-1602283454577-b6df1c6f8d51"),
+  img("photo-1620656798579-1984d9e87df7"),
   img("photo-1599643477877-530eb83abc8e"),
-  img("photo-1602752275197-9a1eb1c5f2a5"),
+  img("photo-1608042314453-ae338d80c427"),
   img("photo-1588444837495-c6cfeb53f32d"),
 ];
