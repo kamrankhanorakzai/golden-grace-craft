@@ -86,6 +86,7 @@ export function Chatbot() {
     setInput("");
     const userMsg: Msg = { id: crypto.randomUUID(), role: "user", text: clean, time: now() };
     setMessages((m) => [...m, userMsg]);
+    playSendSound();
     setTyping(true);
 
     let reply = "";
