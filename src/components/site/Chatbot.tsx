@@ -66,6 +66,7 @@ export function Chatbot() {
   function streamBotMessage(fullText: string) {
     const id = crypto.randomUUID();
     const time = now();
+    playReceiveSound();
     setMessages((m) => [...m, { id, role: "bot", text: "", time }]);
     let i = 0;
     const step = Math.max(1, Math.ceil(fullText.length / 240)); // ~240 ticks max
