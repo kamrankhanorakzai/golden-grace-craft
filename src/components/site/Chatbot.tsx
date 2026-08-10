@@ -3,9 +3,8 @@ import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { playReceiveSound, playSendSound } from "@/lib/chat-sounds";
+import { sendChatMessage } from "@/lib/chat.functions";
 
-// n8n AI Agent webhook
-const CHATBOT_WEBHOOK_URL = "https://n8n-postgres.aiconsultix.com/webhook/Fahion-Chat-bot";
 
 type Msg = { id: string; role: "user" | "bot"; text: string; time: string };
 
