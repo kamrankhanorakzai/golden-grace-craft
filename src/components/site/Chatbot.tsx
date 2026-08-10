@@ -3,9 +3,8 @@ import { MessageCircle, X, Send, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { playReceiveSound, playSendSound } from "@/lib/chat-sounds";
+import { sendChatMessage } from "@/lib/chat.functions";
 
-// n8n AI Agent webhook
-const CHATBOT_WEBHOOK_URL = "https://n8n-postgres.aiconsultix.com/webhook/Fahion-Chat-bot";
 
 type Msg = { id: string; role: "user" | "bot"; text: string; time: string };
 
@@ -91,42 +90,20 @@ export function Chatbot() {
 
     let reply = "";
     try {
-      const res = await fetch(CHATBOT_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      const res = await sendChatMessage({
+        data: {
           message: clean,
           sessionId: sessionIdRef.current,
           history: messages.map((m) => ({ role: m.role, text: m.text })),
-        }),
+        },
       });
-      const contentType = res.headers.get("content-type") || "";
-      let data: unknown;
-      if (contentType.includes("application/json")) {
-        data = await res.json();
-      } else {
-        data = await res.text();
-      }
-      // Try common shapes
-      const anyData = data as Record<string, unknown> | string;
-      if (typeof anyData === "string") {
-        reply = cleanReply(anyData);
-      } else {
-        const candidate =
-          (anyData.reply as string) ??
-          (anyData.output as string) ??
-          (anyData.message as string) ??
-          (anyData.text as string) ??
-          (anyData.response as string) ??
-          ((anyData.data as Record<string, unknown> | undefined)?.output as string) ??
-          "";
-        reply = cleanReply(candidate || JSON.stringify(anyData));
-      }
+      reply = cleanReply(res?.reply ?? "");
     } catch {
       reply = "Sorry, I couldn't reach the assistant right now. Please try again in a moment.";
     } finally {
       setTyping(false);
     }
+
 
     if (!reply) {
       reply = "Thanks for your message! One of our specialists will be in touch shortly.";
